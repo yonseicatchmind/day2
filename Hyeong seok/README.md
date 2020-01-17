@@ -61,7 +61,7 @@ public class SampleController implements Initializable {
 	
 	// variables 
 	
-	 public GraphicsContext gcb, gcf; // canvas에 색 출력  gcf-canvas gcb-canvasef
+	 public GraphicsContext gcb, gcf; // canvas에 색 출력  gcf-canvas gcb-canvasef 각 canvas에는 최종 출력 및 그래픽 이펙트 출력
 	 public boolean freedesign = true, erase = false, drawline = false,
 			 drawoval = false,drawrectangle = false; //true false로 키고 끄기
 	 double startX, startY, lastX,lastY,oldX,oldY,endX,endY;
@@ -118,7 +118,7 @@ public class SampleController implements Initializable {
 	    }
 	  
 	  @FXML 
-	    public void onMouseClickedListener(MouseEvent e){ 
+	    public void onMouseClickedListener(MouseEvent e){  //실험용 
 		  this.endX=e.getX();
 		  this.endY=e.getY();
 	  }
