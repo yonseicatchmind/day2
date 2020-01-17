@@ -1,7 +1,7 @@
 Main.java
 ======
 
-'''Java
+~~~java
 package application;
 	
 import javafx.application.Application;
@@ -30,11 +30,11 @@ public class Main extends Application {
 		launch(args);
 	}
 }
-'''
+~~~
 
 SampleController.java
 ==============
-'''Java
+~~~java
 package application;
 
 import java.net.URL;
@@ -201,12 +201,7 @@ public class SampleController implements Initializable {
 	        gc.setStroke(colorpick.getValue());
 	        gc.clearRect(0, 0, canvas.getWidth() , canvas.getHeight());
 	        gc.strokeLine(startX, startY, lastX, lastY);
-	    }
-	    
-	    
-	    
-	    
-	    
+	    }  
 	    
 	    @FXML 
 	    public void clearCanvas(ActionEvent e)
@@ -240,11 +235,11 @@ public class SampleController implements Initializable {
 			
 		}	 
 }
-'''
+~~~
 
 Sample.fxml
 ========
-'''fxml
+~~~fxml
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.Cursor?>
@@ -321,4 +316,4 @@ Sample.fxml
       <ColorAdjust />
    </effect>
 </AnchorPane>
-'''
+~~~
