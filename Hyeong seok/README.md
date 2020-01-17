@@ -241,6 +241,7 @@ public class SampleController implements Initializable {
 		}	 
 }
 '''
+
 Sample.fxml
 ========
 '''fxml
