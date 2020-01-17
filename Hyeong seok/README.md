@@ -1,7 +1,7 @@
 Main.java
 ======
 
-'''java
+'''Java
 package application;
 	
 import javafx.application.Application;
@@ -29,11 +29,12 @@ public class Main extends Application {
 	public static void main(String[] args) {
 		launch(args);
 	}
-}'''
+}
+'''
 
 SampleController.java
 ==============
-'''java
+'''Java
 package application;
 
 import java.net.URL;
@@ -237,14 +238,7 @@ public class SampleController implements Initializable {
 			// TODO Auto-generated method stub
 			gc = canvas.getGraphicsContext2D();
 			
-		}
-
-	 
-	 
-	 
-	 
-	 
-	 
+		}	 
 }
 '''
 Sample.fxml
