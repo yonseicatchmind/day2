@@ -82,7 +82,7 @@ public class SampleController implements Initializable {
 	    public void onMouseDraggedListener(MouseEvent e){
 	        this.lastX = e.getX();
 	        this.lastY = e.getY();
-	        	// µå·¡±× ÇÒ ¶§ ÇÔ¼öµé È£Ãâ ¹× ¾Ë°í¸®Áò 
+	        	// ë“œë˜ê·¸ í•  ë•Œ í•¨ìˆ˜ë“¤ í˜¸ì¶œ ë° ì•Œê³ ë¦¬ì¦˜ 
 	        if(drawrectangle)
 	            drawRectEffect();
 	        if(drawoval)
@@ -94,7 +94,7 @@ public class SampleController implements Initializable {
 	    }
 	  @FXML
 	    public void onMouseReleaseListener(MouseEvent e){
-//		   ¸¶¿ì½º ¶ª ¶§ ÇÔ¼öµé È£Ãâ ¹× ¸Å¼Òµå 
+//		   ë§ˆìš°ìŠ¤ ë•” ë•Œ í•¨ìˆ˜ë“¤ í˜¸ì¶œ ë° ë§¤ì†Œë“œ 
 	        if(drawrectangle)
 	            drawRect();
 	        if(drawoval)
@@ -104,7 +104,7 @@ public class SampleController implements Initializable {
 	    }
 	  @FXML
 	    public void onMouseExitedListener(MouseEvent event)
-	    { //½ÇÇè
+	    { //ì‹¤í—˜
 //	        System.out.println("mouse exited");
 	    }
 	  
@@ -156,7 +156,7 @@ public class SampleController implements Initializable {
 	    	gc.setLineWidth(5);
 	        gc.setStroke(colorpick.getValue());
 	        gc.strokeLine(oldX, oldY, lastX, lastY);
-	       //¸¶¿ì½º ÀÌº¥Æ®¿¡¼­ À§Ä¡ ¹Ş¾Æ¿È 
+	       //ë§ˆìš°ìŠ¤ ì´ë²¤íŠ¸ì—ì„œ ìœ„ì¹˜ ë°›ì•„ì˜´ 
 	        oldX = lastX;
 	        oldY = lastY;
 	    }
