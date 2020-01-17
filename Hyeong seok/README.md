@@ -1,4 +1,5 @@
-![20200117_212255](https://user-images.githubusercontent.com/57562241/72612364-e0916700-396f-11ea-8c46-21ec26efe5f4.png)
+![프로그램캡쳐](https://user-images.githubusercontent.com/57562241/72621347-70d9a700-3984-11ea-8d42-e25c127d6ad3.png)
+
 
 
 Main.java
@@ -54,17 +55,18 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+
+
 
 public class SampleController implements Initializable {
 	
 	// variables 
 	
-	 public GraphicsContext gcb, gcf; // canvas에 색 출력  gcf-canvas gcb-canvasef 각 canvas에는 최종 출력 및 그래픽 이펙트 출력
+	 public GraphicsContext gcb, gcf; // canvas에 색 출력  gcf-canvas gcb-canvasef 
 	 public boolean freedesign = true, erase = false, drawline = false,
 			 drawoval = false,drawrectangle = false; //true false로 키고 끄기
-	 double startX, startY, lastX,lastY,oldX,oldY,endX,endY;
+	 double startX, startY, lastX,lastY,oldX,oldY,holdX,holdY;
 	 double hg;
 
 //			 c= Color.rgb(244,244,244); // 그림판 배경 색 
@@ -72,7 +74,7 @@ public class SampleController implements Initializable {
 	
 	@FXML 
 	 public TextField Answer;
-	 private TextField Talk;
+	
 	 public Canvas canvas, canvasef;
 	 public Button Pencil;
 	 public Button Eraser;
@@ -80,7 +82,7 @@ public class SampleController implements Initializable {
 	 public ColorPicker colorpick;
 	 public RadioButton strokeRB,fillRB;
 	 public Slider sizeSlider;
-	 public Pane pane;
+	 
 	@FXML
 	public void onMousePressedListener(MouseEvent e){ //직선 및 도형 그릴 때 시작 끝 저장 
 			this.startX = e.getX();
@@ -115,13 +117,20 @@ public class SampleController implements Initializable {
 	            drawLine();
 	        if(erase)
 	        	erase();
+	      
 	    }
-	  
 	  @FXML 
-	    public void onMouseClickedListener(MouseEvent e){  //실험용 
-		  this.endX=e.getX();
-		  this.endY=e.getY();
+	    public void onMouseEnteredListener(MouseEvent e){
+		  this.holdX = e.getX();
+		  this.holdY = e.getY();
+//		  if(erase) {
+//			  eraseEffect();
+//		  }
+	  
 	  }
+	  
+	
+	  
 	  @FXML
 	    public void onMouseExitedListener(MouseEvent event)
 	    { //실험
@@ -155,10 +164,11 @@ public class SampleController implements Initializable {
 //	        gcb.setLineWidth(5);
 
 	        if(fillRB.isSelected()){
-	        	
+	        	 gcf.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 	            gcb.setFill(colorpick.getValue());
 	            gcb.fillRect(startX, startY, wh, hg);
 	        }else{
+	        	gcf.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 	            gcb.setStroke(colorpick.getValue());
 	            gcb.strokeRect(startX, startY, wh, hg);
 	        }
@@ -167,6 +177,7 @@ public class SampleController implements Initializable {
 	    private void drawLine() //선 그리는 메소드 
 	    {	
 	    	if(drawline) {
+	    	gcf.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 	        gcb.setLineWidth(sizeSlider.getValue());
 	        gcb.setStroke(colorpick.getValue());
 	        gcb.strokeLine(startX, startY, lastX, lastY);
@@ -175,6 +186,7 @@ public class SampleController implements Initializable {
 
 	    public void freeDrawing() // 마우스 이용 그리기  메소드 
 	    {
+	    	gcf.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 //	    	gcb.setLineWidth(5);
 	        gcb.setLineWidth(sizeSlider.getValue());
 	        gcb.setStroke(colorpick.getValue());
@@ -183,11 +195,21 @@ public class SampleController implements Initializable {
 	        oldX = lastX;
 	        oldY = lastY;
 	    }
-	    public void erase() {
+	    private void erase() { // 지우개 메소드 
 	    	if(erase) {
-	    	gcb.setLineWidth(sizeSlider.getValue());
-	    	gcb.setStroke(Color.rgb(244, 244, 244));// 배경 색으로 덮어씌우는 식 
-	    	gcb.strokeLine(oldX, oldY, lastX, lastY);}
+	    		gcf.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+//		    	gcb.setLineWidth(5);
+		        gcb.setLineWidth(sizeSlider.getValue());
+		        gcb.setStroke(Color.WHITE);
+		        gcb.strokeLine(oldX, oldY, lastX, lastY);
+		       //마우스 이벤트에서 위치 받아옴 
+		        oldX = lastX;
+		        oldY = lastY;
+	    		 
+	    
+	    
+	    	
+	    		}
 	    }
 	    
 	    
@@ -205,10 +227,14 @@ public class SampleController implements Initializable {
 	            gcf.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 	            gcf.setFill(colorpick.getValue());
 	            gcf.fillOval(startX, startY, wh, hg);
+	          
+	          
 	        }else{
 	            gcf.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 	            gcf.setStroke(colorpick.getValue());
 	            gcf.strokeOval(startX, startY, wh, hg );
+	     
+	          
 	        }
 	       }
 
@@ -222,10 +248,13 @@ public class SampleController implements Initializable {
 	            gcf.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 	            gcf.setFill(colorpick.getValue());
 	            gcf.fillRect(startX, startY, wh, hg);
+	          
 	        }else{
 	            gcf.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 	            gcf.setStroke(colorpick.getValue());
 	            gcf.strokeRect(startX, startY, wh, hg );
+	          
+	        
 	        }
 	    }
 	    
@@ -236,7 +265,21 @@ public class SampleController implements Initializable {
 	        gcf.setStroke(colorpick.getValue());
 	        gcf.clearRect(0, 0, canvas.getWidth() , canvas.getHeight());
 	        gcf.strokeLine(startX, startY, lastX, lastY);
+	     
+	     
 	    }  
+	    
+//	    private void eraseEffect() {
+//	    	    double wh = sizeSlider.getValue();
+//		       
+//		        gcf.setLineWidth(1);
+//
+//		      if(erase) {
+//		    	  gcf.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
+//		    	  gcf.setStroke(colorpick.getValue());
+//		          gcf.strokeRect(holdX, holdY, wh, wh );
+//		      }
+//	    }
 	    
 	    // button connect 
 	    
@@ -271,7 +314,7 @@ public class SampleController implements Initializable {
 
 	    	 
 	    @FXML 
-	    public void clearCanvas(ActionEvent e)
+	    private void clearCanvas(ActionEvent e)
 	    {
 	        gcf.clearRect(0, 0, canvas.getWidth(), canvas.getHeight());
 	        gcb.clearRect(0, 0, canvasef.getWidth(), canvasef.getHeight());
@@ -295,11 +338,15 @@ public class SampleController implements Initializable {
 	        erase = false;
 	        freedesign = true;
 	    }
+	   
+	    
+	    
 		@Override
 		public void initialize(URL url, ResourceBundle rb) {
 			// TODO Auto-generated method stub
 			gcf = canvas.getGraphicsContext2D();
 			gcb = canvasef.getGraphicsContext2D();
+			
 			
 			
 			
@@ -384,7 +431,7 @@ Sample.fxml
                   </ToolBar>
                </children>
             </HBox>
-            <Canvas fx:id="canvas" height="383.0" layoutX="2.0" layoutY="46.0" onMouseClicked="#onMouseClickedListener" onMouseDragged="#onMouseDraggedListener" onMouseExited="#onMouseExitedListener" onMousePressed="#onMousePressedListener" onMouseReleased="#onMouseReleaseListener" width="1031.0" />
+            <Canvas fx:id="canvas" height="370.0" layoutY="45.0" onMouseDragged="#onMouseDraggedListener" onMouseEntered="#onMouseEnteredListener" onMouseExited="#onMouseExitedListener" onMousePressed="#onMousePressedListener" onMouseReleased="#onMouseReleaseListener" width="1018.0" />
          </children>
       </Pane>
    </children>
